@@ -1,0 +1,40 @@
+{
+  "name": "signature-phone-fix",
+  "description": "Customizable Signature Pad",
+  "author": "Samuel Wolnerman, Ben Gilman",
+  "version": "1.0.5",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "adalo dev",
+    "build": "adalo build",
+    "login": "adalo login",
+    "postinstall": "rm -rf node_modules/react-native-webview && rm -rf node_modules/react"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16",
+    "react-native": "*"
+  },
+  "adalo": {
+    "displayName": "Signature",
+    "components": [
+      {
+        "name": "SignaturePhone",
+        "manifest": "./src/components/SignaturePhone/manifest.json"
+      }
+    ],
+    "logo": "./logo.png"
+  },
+  "devDependencies": {
+    "@adalo/cli": "^0.0.43",
+    "react": "^16.13.1",
+    "react-art": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-native-web": "^0.9.13"
+  },
+  "dependencies": {
+    "react-native-signature-canvas": "^3.0.0",
+    "react-signature-canvas": "^1.0.3"
+  }
+}
