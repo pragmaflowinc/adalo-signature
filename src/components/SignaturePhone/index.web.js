@@ -77,8 +77,6 @@ class ReactSig extends Component {
 		const { backgroundColor, penColor, borderColor, buttonTextColor, buttonBackgroundColor} = this.props
 		const { trimmedDataURL } = this.state
 
-
-
 		const buttonHeight = 32;
 		const sigHeight = this.props._height - buttonHeight;
 

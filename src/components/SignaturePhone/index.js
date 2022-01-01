@@ -1,52 +1,94 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import React, { Component, useRef } from "react";
+import { View, TouchableHighlight, Text } from "react-native";
 
-import Signature from 'react-native-signature-canvas';
+import Signature from "react-native-signature-canvas";
 
-//const SignaturePhone = ({text, onOK}) => {
-class SignaturePhone extends Component{
-	render = () => {console.log(this.props);
-		return (
-			<View style = {{width: this.props._width, height: this.props._height}}>
-				<Signature
-				  // handle when you click save button
-				  onOK={(img) => {
-						const {imageOutputAction} = this.props;
-						if(imageOutputAction) imageOutputAction(img)
-					}}
-				  onEmpty={() => console.log("empty")}
-				  // description text for signature
-				  descriptionText=""
-				  // clear button text
-				  clearText= {this.props.clearText}
-				  // save button text
-				  confirmText={this.props.saveText}
-				  // String, webview style for overwrite default style, all style: https://github.com/YanYuanFE/react-native-signature-canvas/blob/master/h5/css/signature-pad.css
-				  webStyle={`.m-signature-pad {
-						  background-color: ${this.props.backgroundColor};
-							width: ${this.props._width};
-  						height: ${this.props._height};
-						}
-            .m-signature-pad--footer
-            {
-              height: 95px;
-            }
-						.m-signature-pad--footer
-							.button{
-								background-color: ${this.props.buttonBackgroundColor};
-								color: ${this.props.buttonTextColor};
-							}
-						`
-				  }
-				  autoClear={true}
-				  imageType={"image/svg+xml"}
-				/>
-			</View>
-	  );
-	}
-}
+const SignaturePhone = ({
+  _width,
+  _height,
+	backgroundColor = "#ffffff",
+	penColor = "#000000",
+	buttonBackgroundColor = "#000000",
+	clearText = "Clear",
+	saveText = "Save",
+	buttonTextColor = "borderColor",
+  borderColor,
+	imageOutputAction = () => {}
+}) => {
+  const ref = useRef();
 
-export default SignaturePhone
+  const handleClear = () => {
+    ref.current.clearSignature();
+  };
+
+  const handleConfirm = () => {
+    console.log("end");
+    ref.current.readSignature();
+  };
+  return (
+    <View
+      style={{
+        width: _width,
+        height: _height,
+        borderColor: borderColor,
+        borderWidth: 1,
+      }}
+    >
+      <Signature
+        ref={ref}
+        onOK={(img) => {
+          if (imageOutputAction) imageOutputAction(img);
+        }}
+        webStyle={`
+            .m-signature-pad {box-shadow: none; border: none } 
+            .m-signature-pad--body {border: none}
+            .m-signature-pad--body canvas {border-radius: 0px}
+            .m-signature-pad--footer {display: none; margin: 0px;}
+          `}
+        penColor={penColor}
+        backgroundColor={backgroundColor}
+        descriptionText=""
+        autoClear={true}
+        imageType={"image/svg+xml"}
+      />
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ flex: 1 }}>
+          <TouchableHighlight
+            onPress={handleClear}
+            style={{ backgroundColor: buttonBackgroundColor, padding: 8 }}
+          >
+            <Text
+              style={{
+                alignSelf: "center",
+                color: buttonTextColor,
+                textTransform: "uppercase",
+                fontWeight: "600",
+              }}
+            >
+              {clearText}
+            </Text>
+          </TouchableHighlight>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableHighlight
+            onPress={handleConfirm}
+            style={{ backgroundColor: buttonBackgroundColor, padding: 8 }}
+          >
+            <Text
+              style={{
+                alignSelf: "center",
+                color: buttonTextColor,
+                textTransform: "uppercase",
+                fontWeight: "600",
+              }}
+            >
+              {saveText}
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default SignaturePhone;

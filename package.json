@@ -2,7 +2,7 @@
   "name": "signature-phone-fix",
   "description": "Customizable Signature Pad",
   "author": "Samuel Wolnerman, Ben Gilman",
-  "version": "1.0.5",
+  "version": "1.0.10",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "react-native-signature-canvas": "^3.0.0",
-    "react-signature-canvas": "^1.0.3"
+    "react-signature-canvas": "^1.0.3",
+    "@protonapp/react-native-material-ui": "^2.0.6",
+    "react-native-vector-icons": "^9.0.0"
   }
 }
